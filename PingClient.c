@@ -77,9 +77,19 @@ int main(int argc, char *argv[]) {
     
     printf("--- %s ping statistics ---\n", server_ip);
     
-    if (received > 0)
-        printf("10 packets transmitted, %d received, %.0f%% packet loss rtt min/avg/max = %.3f %.3f %.3f ms\n", 
-            transmitted,received,loss_percentage, min_rtt, avg_rtt, max_rtt);
+    
+
+    if (received == 0) {
+        printf("10 packets transmitted, %d received, %d%% packet loss\n", 
+            received, loss_percentage);
+    } else {
+        printf("10 packets transmitted, %d received, %d%% packet loss rtt min/avg/max = %.3f %.3f %.3f ms\n",
+            transmitted, received, loss_percentage, min_rtt, avg_rtt, max_rtt);
+    }
+
+
+
+
     
     close(sockfd);
     return 0;
