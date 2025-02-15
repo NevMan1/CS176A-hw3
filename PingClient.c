@@ -59,7 +59,7 @@ int main(int argc, char *argv[]) {
         clock_gettime(CLOCK_MONOTONIC, &end);
         double rtt = (end.tv_sec - start.tv_sec) * 1000.0 + (end.tv_nsec - start.tv_nsec) / 1000000.0;
         
-        printf("PING received from %s: seq#=%d time=%.2f ms\n", server_ip, i, rtt);
+        printf("PING received from %s: seq#=%d time=%.3f ms\n", server_ip, i, rtt);
         received++;
         total_rtt += rtt;
         if (rtt < min_rtt) min_rtt = rtt;
@@ -72,10 +72,6 @@ int main(int argc, char *argv[]) {
     int loss_percentage = 100 - (received * 100 / transmitted);
     
     
-    min_rtt = ((int)(min_rtt * 1000)) / 1000.0;
-    avg_rtt = ((int)(avg_rtt * 1000)) / 1000.0;
-    max_rtt = ((int)(max_rtt * 1000)) / 1000.0;
-
     printf("--- %s ping statistics ---\n", server_ip);
     
     if (received == 0) {
@@ -83,7 +79,7 @@ int main(int argc, char *argv[]) {
             received, loss_percentage);
     } else {
         printf("10 packets transmitted, %d received, %d%% packet loss rtt min/avg/max = %.3f %.3f %.3f ms\n",
-             received, loss_percentage, min_rtt, avg_rtt, max_rtt);
+            received, loss_percentage, min_rtt, avg_rtt, max_rtt);
     }
     
     close(sockfd);
