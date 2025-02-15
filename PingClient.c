@@ -7,7 +7,7 @@
 #include <unistd.h>
 #include <time.h>
 
-#define PACKET_COUNT 10
+
 #define TIMEOUT_SEC 1
 #define BUFFER_SIZE 1024
 
@@ -41,7 +41,7 @@ int main(int argc, char *argv[]) {
     int transmitted = 0, received = 0;
     double min_rtt = 1e6, max_rtt = 0, total_rtt = 0;
     
-    for (int i = 1; i <= PACKET_COUNT; i++) {
+    for (int i = 1; i <= 10; i++) {
         char message[BUFFER_SIZE];
         struct timespec start, end;
         
@@ -55,8 +55,8 @@ int main(int argc, char *argv[]) {
         transmitted++;
         
         char buffer[BUFFER_SIZE];
-        socklen_t addr_len = sizeof(server_addr);
-        if (recvfrom(sockfd, buffer, BUFFER_SIZE, 0, (struct sockaddr *)&server_addr, &addr_len) < 0) {
+        socklen_t len = sizeof(server_addr);
+        if (recvfrom(sockfd, buffer, BUFFER_SIZE, 0, (struct sockaddr *)&server_addr, &len) < 0) {
             printf("Request timeout for seq# %d\n", i);
             continue;
         }
