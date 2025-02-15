@@ -80,7 +80,7 @@ int main(int argc, char *argv[]) {
     
     if (received == 0) {
         printf("10 packets transmitted, %d received, %d%% packet loss\n", 
-            transmitted, loss_percentage);
+            received, loss_percentage);
     } else {
         printf("10 packets transmitted, %d received, %d%% packet loss rtt min/avg/max = %.3f %.3f %.3f ms\n",
              received, loss_percentage, min_rtt, avg_rtt, max_rtt);
