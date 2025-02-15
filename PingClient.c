@@ -57,7 +57,7 @@ int main(int argc, char *argv[]) {
         char buffer[BUFFER_SIZE];
         socklen_t len = sizeof(server_addr);
         if (recvfrom(sockfd, buffer, BUFFER_SIZE, 0, (struct sockaddr *)&server_addr, &len) < 0) {
-            printf("Request timeout for seq# %d\n", i);
+            printf("Request timeout for seq#=%d\n", i);
             continue;
         }
         
