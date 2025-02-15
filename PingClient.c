@@ -57,6 +57,7 @@ int main(int argc, char *argv[]) {
         socklen_t len = sizeof(server_addr);
         if (recvfrom(sockfd, buffer, BUFFER_SIZE, 0, (struct sockaddr *)&server_addr, &len) < 0) {
             printf("Request timeout for seq#=%d\n", i);
+            
             continue;
         }
         
@@ -77,14 +78,13 @@ int main(int argc, char *argv[]) {
     
     printf("--- %s ping statistics ---\n", server_ip);
     
-    
 
     if (received == 0) {
         printf("10 packets transmitted, %d received, %d%% packet loss\n", 
             received, loss_percentage);
     } else {
         printf("10 packets transmitted, %d received, %d%% packet loss rtt min/avg/max = %.3f %.3f %.3f ms\n",
-            transmitted, received, loss_percentage, min_rtt, avg_rtt, max_rtt);
+            received, loss_percentage, min_rtt, avg_rtt, max_rtt);
     }
 
 
