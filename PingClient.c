@@ -8,8 +8,7 @@
 #include <time.h>
 
 
-#define TIMEOUT_SEC 1
-#define BUFFER_SIZE 1024
+
 
 int main(int argc, char *argv[]) {
     
@@ -20,7 +19,7 @@ int main(int argc, char *argv[]) {
     
     char *server_ip = argv[1];
     int server_port = atoi(argv[2]);
-    
+    int BUFFER_SIZE = 1024;
     int sockfd = socket(AF_INET, SOCK_DGRAM, 0);
     if (sockfd < 0) {
         perror("Socket creation failed");
@@ -34,7 +33,7 @@ int main(int argc, char *argv[]) {
     server_addr.sin_addr.s_addr = inet_addr(server_ip);
     
     struct timeval timeout;
-    timeout.tv_sec = TIMEOUT_SEC;
+    timeout.tv_sec = 1;
     timeout.tv_usec = 0;
     setsockopt(sockfd, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(timeout));
     
@@ -77,9 +76,10 @@ int main(int argc, char *argv[]) {
     int loss_percentage = 100 - (received * 100 / transmitted);
     
     printf("--- %s ping statistics ---\n", server_ip);
-    printf("%d packets transmitted, %d received, %d%% packet loss\n", transmitted, received, loss_percentage);
+    
     if (received > 0)
-        printf("rtt min/avg/max = %.2f/%.2f/%.2f ms\n", min_rtt, avg_rtt, max_rtt);
+        printf("10 packets transmitted, %d received, %.0f%% packet loss rtt min/avg/max = %.3f %.3f %.3f ms\n", 
+            transmitted,received,loss_percentage, min_rtt, avg_rtt, max_rtt);
     
     close(sockfd);
     return 0;
